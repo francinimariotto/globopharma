@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globo Pharma — Plano de Conteúdo Abril 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4ff; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%); padding: 36px 32px 28px; }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .badge { background: rgba(255,255,255,0.15); border-radius: 8px; padding: 5px 14px; font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 600; letter-spacing: 0.5px; }
+  .header h1 { color: #fff; font-size: 30px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header p { color: rgba(255,255,255,0.7); font-size: 14px; margin-bottom: 20px; }
+  .header-stats { display: flex; gap: 14px; flex-wrap: wrap; }
+  .stat { background: rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 18px; color: #fff; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .stat strong { font-size: 20px; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+
+  .tabs { display: flex; gap: 8px; margin-top: 28px; margin-bottom: 14px; }
+  .tab-btn { padding: 10px 28px; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; font-size: 14px; transition: all 0.2s; background: #fff; color: #64748b; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .tab-btn.active-insta { background: #7c3aed; color: #fff; box-shadow: 0 2px 12px rgba(124,58,237,0.3); }
+  .tab-btn.active-lk { background: #1d4ed8; color: #fff; box-shadow: 0 2px 12px rgba(29,78,216,0.3); }
+
+  .counter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 16px; transition: all 0.3s; }
+  .counter-bar.complete { background: #dcfce7; border-color: #86efac; }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 28px; height: 28px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+  .dot.filled { background: #16a34a; }
+  .counter-text { font-size: 13px; color: #64748b; font-weight: 600; }
+  .counter-bar.complete .counter-text { color: #15803d; }
+  .clear-btn { margin-left: auto; font-size: 11px; color: #94a3b8; background: none; border: 1px solid #e5e7eb; border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+
+  .regulatory { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; font-size: 13px; color: #78350f; line-height: 1.6; }
+  .regulatory strong { font-weight: 700; }
+
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .section-bar { width: 4px; height: 36px; border-radius: 2px; }
+  .section-title { font-weight: 800; font-size: 18px; color: #1e293b; }
+  .section-sub { font-size: 12px; color: #94a3b8; }
+
+  .post-card { border-radius: 14px; padding: 18px 20px; cursor: pointer; transition: all 0.2s; border: 1.5px solid #e5e7eb; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 12px; }
+  .post-card:hover { border-color: #cbd5e1; }
+  .post-card.open { background: #f8faff; border: 2px solid #2563eb; box-shadow: 0 4px 24px rgba(37,99,235,0.10); }
+  .post-card.selected { background: #f0fdf4; border: 2px solid #16a34a; box-shadow: 0 4px 24px rgba(22,163,74,0.12); }
+  .post-card.disabled { opacity: 0.45; pointer-events: none; }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .card-meta { flex: 1; }
+  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .tag { border-radius: 6px; padding: 2px 10px; font-size: 11px; font-weight: 700; }
+  .tag-insta { background: #f3e8ff; color: #7c3aed; border: 1px solid #c4b5fd; }
+  .tag-lk { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+  .tag-num { background: #f1f5f9; color: #475569; }
+  .tag-both { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+  .tag-chosen { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+  .card-title { font-weight: 700; font-size: 15px; color: #1e293b; line-height: 1.4; margin-bottom: 6px; }
+  .card-dates { display: flex; gap: 8px; flex-wrap: wrap; }
+  .card-date { font-size: 12px; color: #64748b; background: #f8fafc; border-radius: 5px; padding: 2px 8px; }
+
+  .card-actions { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+  .select-btn { padding: 6px 14px; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; font-size: 12px; transition: all 0.2s; background: #f1f5f9; color: #475569; white-space: nowrap; }
+  .select-btn.selected { background: #16a34a; color: #fff; }
+  .select-btn:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; }
+  .toggle-btn { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 12px; transition: all 0.2s; flex-shrink: 0; border: none; cursor: pointer; }
+  .toggle-btn.open { background: #2563eb; color: #fff; }
+
+  .card-body { margin-top: 18px; border-top: 1px solid #e5e7eb; padding-top: 16px; }
+  .block { margin-bottom: 14px; }
+  .block-label { font-weight: 700; font-size: 12px; padding: 4px 10px; border-radius: 6px 6px 0 0; display: inline-block; }
+  .block-content { padding: 10px 14px; border-radius: 0 6px 6px 6px; font-size: 13px; color: #1e293b; line-height: 1.7; white-space: pre-line; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .pendencias { margin-top: 40px; background: #fff; border-radius: 14px; padding: 20px 24px; border: 1px solid #e5e7eb; }
+  .pendencias strong { color: #1e293b; display: block; margin-bottom: 8px; font-size: 14px; }
+  .pendencias ul { margin: 0; padding-left: 20px; line-height: 2; font-size: 13px; color: #64748b; }
+  .pendencias li strong { display: inline; color: #374151; }
+
+  .comment-area { margin-top: 14px; border-top: 1px dashed #e2e8f0; padding-top: 14px; }
+  .comment-label { font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .comment-input { width: 100%; min-height: 72px; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; font-size: 13px; font-family: inherit; color: #1e293b; resize: vertical; transition: border-color 0.2s; background: #fafafa; line-height: 1.6; }
+  .comment-input:focus { outline: none; border-color: #2563eb; background: #fff; }
+  .comment-input::placeholder { color: #94a3b8; }
+  .comment-input.has-text { background: #fffef0; border-color: #fbbf24; }
+
+  @media (max-width: 600px) {
+    .header { padding: 24px 16px 20px; }
+    .main { padding: 0 12px 40px; }
+    .tabs { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badges">
+      <span class="badge">PLANEJAMENTO DE CONTEÚDO</span>
+      <span class="badge">ABRIL 2026</span>
+    </div>
+    <h1>Globo Pharma</h1>
+    <p>Estrutura, Tecnologia e Confiança · 14 ideias de posts · Instagram + LinkedIn</p>
+    <div class="header-stats">
+      <div class="stat"><span>📸</span><strong>8</strong><span>Posts Instagram</span></div>
+      <div class="stat"><span>💼</span><strong>6</strong><span>Posts LinkedIn</span></div>
+      <div class="stat"><span>✦</span><strong>4</strong><span>Para ambas as redes</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="tabs">
+    <button class="tab-btn active-insta" onclick="switchTab('insta', this)">📸 Instagram</button>
+    <button class="tab-btn" onclick="switchTab('lk', this)">💼 LinkedIn</button>
+  </div>
+
+  <!-- Contador Instagram -->
+  <div class="counter-bar" id="counter-insta">
+    <div class="dots" id="dots-insta">
+      <div class="dot" id="dot-insta-0"></div>
+      <div class="dot" id="dot-insta-1"></div>
+      <div class="dot" id="dot-insta-2"></div>
+      <div class="dot" id="dot-insta-3"></div>
+    </div>
+    <span class="counter-text" id="counter-text-insta">0 de 4 posts selecionados para Instagram</span>
+    <button class="clear-btn" onclick="clearSelections('insta')">Limpar</button>
+  </div>
+
+  <!-- Contador LinkedIn -->
+  <div class="counter-bar" id="counter-lk" style="display:none">
+    <div class="dots" id="dots-lk">
+      <div class="dot" id="dot-lk-0"></div>
+      <div class="dot" id="dot-lk-1"></div>
+      <div class="dot" id="dot-lk-2"></div>
+      <div class="dot" id="dot-lk-3"></div>
+    </div>
+    <span class="counter-text" id="counter-text-lk">0 de 4 posts selecionados para LinkedIn</span>
+    <button class="clear-btn" onclick="clearSelections('lk')">Limpar</button>
+  </div>
+
+  <div class="regulatory">
+    <strong>⚠️ Lembrete regulatório:</strong> Nenhum post deve afirmar ou sugerir eficácia terapêutica, comparar com concorrentes ou fazer promessa de resultado clínico. O foco é sempre processo, estrutura e pessoas — conforme RDC 96/2008 e diretrizes de comunicação farmacêutica.
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="tab-panel active" id="panel-insta">
+    <div class="section-header">
+      <div class="section-bar" style="background:#7c3aed"></div>
+      <div><div class="section-title">Instagram</div><div class="section-sub">8 ideias · selecionar 4</div></div>
+    </div>
+
+    <div id="post-insta-1" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag tag-insta">Instagram</span>
+            <span class="tag tag-num">POST 01</span>
+            <span class="tag tag-both">✦ Ambas redes</span>
+          </div>
+          <div class="card-title">Abril Verde: Segurança que começa antes do produto</div>
+          <div class="card-dates">
+            <span class="card-date">📅 28 de abril — Dia Mundial da SST</span>
+            <span class="card-date">📐 Carrossel (3–5 slides)</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-1')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Alcance + Engajamento</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">O Dia Mundial da Segurança e Saúde no Trabalho (28/04) é a abertura perfeita pra Globo Pharma mostrar que confiança não começa na prateleira da farmácia — começa no chão de fábrica. A ideia é usar o Abril Verde como pano de fundo, sem fazer post genérico de "parabéns ao trabalhador".</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Slide 1 (capa): Frase de impacto visual — algo como "Antes de chegar até você, existe um processo. E esse processo começa com pessoas seguras."
+Slides 2–4: Dados rápidos e visuais sobre o que a Globo Pharma faz no campo de segurança do trabalho (aqui entra o material da SIPAMAC que a Lilian e a Eryka vão enviar — usar números reais, não genéricos).
+Slide final: CTA de comentário — ex: "O que segurança no trabalho significa pra você no dia a dia?" ou "Você sabia que cada etapa do nosso processo passa por protocolos de segurança? Conta nos comentários se isso faz diferença na sua escolha."</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentários: pergunta aberta sobre o que significa segurança no trabalho pra audiência</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: "É com muito orgulho que...", "Neste dia especial...", "Somos comprometidos com...", "Juntos construímos...", qualquer frase que soe como discurso de RH de 2015. Não citar eficácia de produto. Foco 100% em processo e pessoas.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Usar verde da identidade Abril Verde com sobriedade — não transformar em post temático genérico. Composição limpa, dados em destaque.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-2" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 02</span></div>
+          <div class="card-title">SIPAMAC em cena: quem cuida de quem cuida de você</div>
+          <div class="card-dates"><span class="card-date">📅 Semana de 28/04 ou até 02/05</span><span class="card-date">📐 Reels curto (30–45s) ou carrossel com foto real</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-2')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Alcance + Novos seguidores</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Apresentar a SIPAMAC de forma humana — não como sigla burocrática, mas como a equipe que garante que ninguém se machuque enquanto fabrica o que vai cuidar da saúde de outros. Conteúdo de bastidor com rosto real (Lilian, Eryka ou equipe).</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Formato vídeo: 3–4 cenas rápidas mostrando o cotidiano da área (EPI, checklist, visita ao chão de fábrica, medição de ambiente). Narração em legenda ou off curto. Frase final: "Cada detalhe que você não vê é cuidado por quem leva segurança a sério."
+Formato carrossel: Slide 1 com foto de equipe + nome da área. Slides seguintes com "o que a SIPAMAC faz" em linguagem acessível — não técnica.</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Caixa de perguntas nos Stories: 'O que você gostaria de saber sobre como um medicamento é produzido com segurança?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: siglas soltas sem explicar, termos técnicos de CIPA/NR sem contexto, tom de relatório anual. Não transformar em post de compliance. A ideia é curiosidade, não burocracia.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Foto real da equipe é essencial aqui — sem banco de imagens. Post perde totalmente o valor sem autenticidade.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-3" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 03</span></div>
+          <div class="card-title">Um dia na produção (Reels de bastidor)</div>
+          <div class="card-dates"><span class="card-date">📅 Primeira ou segunda semana de abril</span><span class="card-date">📐 Reels (45s–1min)</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-3')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Alcance orgânico + Novos seguidores</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Reels de bastidor mostrando o fluxo de produção de forma visual e dinâmica. Não precisa revelar fórmulas nem processos sensíveis — a câmera passeia pelo ambiente, mostra escala, organização, tecnologia, pessoas. O recado subliminar: "antes de chegar até você, existe estrutura de verdade."</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Sequência de cortes rápidos (estilo tour): equipamentos, etiquetas, controle de qualidade em bancada, embalagem, movimentação de estoque. Texto sobre imagem: perguntas curtas que conduzem a narrativa — "Você já se perguntou por onde começa um medicamento?" → "Começa aqui."</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Legenda com pergunta: 'Qual parte do processo você mais queria conhecer de perto?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: narração em voz over robótica, texto tipo manual técnico, menção a princípio ativo ou eficácia. Não precisa de locução — música + texto na tela resolve. Não usar "inovação" como palavra solta.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Corte dinâmico, luz quente de fábrica real. Evitar parecer institucional demais — quer parecer conteúdo orgânico, não comercial.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-4" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 04</span><span class="tag tag-both">✦ Ambas redes</span></div>
+          <div class="card-title">Post interativo: mitos sobre medicamentos genéricos</div>
+          <div class="card-dates"><span class="card-date">📅 Semana 2 ou 3 de abril</span><span class="card-date">📐 Carrossel ou stories interativo (enquete)</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-4')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Engajamento + Novos seguidores via compartilhamento</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Genérico ainda carrega preconceito no imaginário popular. A Globo Pharma produz genéricos — isso é uma oportunidade de educação leve, sem fazer post chato de "saiba mais". Formato mito vs. verdade, com linguagem direta e um pouco de ironia leve.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Slide 1: "Você acredita em algum desses mitos sobre genéricos?" (já cria expectativa)
+Slides 2–4: Mito + resposta direta. Exemplos: "Genérico é mais fraco" → falso, precisa passar pelos mesmos testes de bioequivalência da ANVISA. "É feito com ingredientes piores" → falso, mesma substância ativa. "É só pra quem não tem dinheiro" → falso, é escolha inteligente.
+Slide final: CTA de comentário — "Qual desses você já acreditou? Conta aqui (sem julgamento 👀)"</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentário com confissão leve — formato que gera identificação e compartilhamento</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: tom didático de bula, citar nome de produto específico sem aprovação, afirmar superioridade terapêutica. A lei permite falar de equivalência e processo regulatório — não de eficácia comparativa. Usar humor sutil, não forçado. Sem "você sabia que?" como abertura.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Layout de carrossel com contraste visual entre mito (vermelho/laranja) e verdade (verde/neutro). Tipografia legível no mobile.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-5" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 05</span></div>
+          <div class="card-title">Humanização: quem são as pessoas da Globo Pharma?</div>
+          <div class="card-dates"><span class="card-date">📅 Semana 3 de abril</span><span class="card-date">📐 Carrossel com foto real de colaborador</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-5')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Engajamento + Alcance por identificação</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Uma das melhores formas de sair da bolha de seguidores é mostrar rosto humano. Não precisa ser entrevista longa — basta uma frase de impacto de um colaborador real, foto autêntica e contexto do papel dele na cadeia de produção.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Slide 1: Foto do colaborador + cargo + uma frase dele (aspas reais, não inventada pela copy). Slides 2–3: Breve descrição do que aquele papel faz dentro da Globo Pharma, em linguagem humana. Slide final: "Conheça quem faz acontecer. Todo dia." + CTA de comentário: "Conta aqui: qual profissão da indústria farmacêutica você conhece menos?"</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentário com curiosidade — incentiva novos públicos a interagir</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: texto engessado tipo "temos orgulho de contar com profissionais dedicados". A frase do colaborador precisa soar humana de verdade — se não conseguir frase real, melhor não fazer o formato. Não usar "time", "equipe vencedora" ou similares.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Foto sem muito tratamento — naturalidade é o ponto. Fundo simples, destaque na pessoa.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-6" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 06</span></div>
+          <div class="card-title">O que garante qualidade aqui dentro? (Respostas rápidas)</div>
+          <div class="card-dates"><span class="card-date">📅 Semana 4 de abril</span><span class="card-date">📐 Reels curto (20–30s)</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-6')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Alcance + Autoridade percebida</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Série de respostas curtas e diretas de pessoas reais da fábrica (pode ser 1 pessoa ou 2–3 diferentes). Pergunta padrão: "O que garante qualidade aqui dentro?" Cada um responde em 5–10 segundos. Edição dinâmica, sem roteiro decorado.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Formato talking head rápido — câmera na mão, ambiente real de fábrica ao fundo (sem precisar ser dentro da produção). 3–4 cortes de respostas diferentes. Texto na tela reforçando cada resposta. Finaliza com logo + frase curta.</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Legenda: 'Você confiaria mais em um produto sabendo que existe uma equipe assim por trás? Conta nos comentários.'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: resposta decorada que parece apresentação de empresa. Quanto mais natural e até um pouco imperfeito (gaguejo, pausa), melhor. Não citar nome de produto. Não fazer promessa de resultado clínico.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Edição limpa, texto na tela com fonte legível. Não exagerar em efeitos — a autenticidade é o design aqui.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-7" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 07</span><span class="tag tag-both">✦ Ambas redes</span></div>
+          <div class="card-title">Antecipação: Dia do Trabalho — o trabalhador que você não vê</div>
+          <div class="card-dates"><span class="card-date">📅 30 de abril (véspera do 1º de maio)</span><span class="card-date">📐 Carrossel ou imagem única com frase</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-7')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Alcance + Engajamento emocional</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">1º de maio como gancho — mas sem fazer post comemorativo padrão. A Globo Pharma pode se apropriar da data falando sobre o trabalhador da indústria farmacêutica, que está fora do holofote mas sustenta um setor essencial. Tom: reconhecimento genuíno, não corporativo.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Imagem ou slide único com frase forte: "Tem um trabalhador que você nunca vai ver na propaganda — mas que garante que o medicamento na sua casa foi feito com responsabilidade." Complemento: breve contextualização sobre a indústria farmacêutica brasileira como empregadora. CTA de comentário: "Tem alguém na sua família que trabalha na indústria? Marca aqui."</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Marcação de pessoas — alto potencial de alcance orgânico</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: "Feliz Dia do Trabalho a todos os nossos colaboradores" — isso é o que todo mundo faz. Não usar "heróis", "guerreiros". Tom reconhecedor, não grandiloquente.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Composição sóbria, tipografia com peso. Cor neutra ou verde institucional. Nada festivo demais.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-insta-8" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-insta">Instagram</span><span class="tag tag-num">POST 08</span></div>
+          <div class="card-title">Post interativo: caixa de perguntas sobre bastidores da indústria</div>
+          <div class="card-dates"><span class="card-date">📅 Qualquer semana — após um post de bastidor</span><span class="card-date">📐 Stories — Caixa de perguntas</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'insta', 'post-insta-8')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Engajamento + Coleta de insight de audiência</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Ativar caixa de perguntas nos Stories com o tema: "Me pergunte qualquer coisa sobre como um medicamento é feito." Responder as melhores perguntas em Stories subsequentes — de forma humana, sem parecer FAQ corporativo.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Stories 1: "Você já se perguntou o que acontece antes de um remédio chegar à farmácia? Me manda sua pergunta 👇" (caixa aberta). Stories 2–4 nos dias seguintes: responder perguntas reais recebidas, com texto + visual simples. Pode usar GIF ou imagem de bastidor pra ilustrar.</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Caixa de perguntas ativa — formato com alto potencial de salvo e compartilhamento</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: resposta em linguagem de bula. Responder como pessoa, não como comunicado oficial. Se vier pergunta sobre indicação de produto — responder que isso é com o profissional de saúde, sem ignorar a pergunta.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Stories com identidade visual da marca, mas leve. Não precisa ser elaborado — o conteúdo é o protagonista.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINKEDIN -->
+  <div class="tab-panel" id="panel-lk">
+    <div class="section-header">
+      <div class="section-bar" style="background:#1d4ed8"></div>
+      <div><div class="section-title">LinkedIn</div><div class="section-sub">6 ideias · selecionar 4</div></div>
+    </div>
+
+    <div id="post-lk-1" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-lk">LinkedIn</span><span class="tag tag-num">POST 01</span><span class="tag tag-both">✦ Ambas redes</span></div>
+          <div class="card-title">Abril Verde: SIPAMAC e a cultura de segurança na indústria</div>
+          <div class="card-dates"><span class="card-date">📅 28 de abril — Dia Mundial da SST</span><span class="card-date">📐 Post longo com imagem ou carrossel</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'lk', 'post-lk-1')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Autoridade + Alcance B2B</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">No LinkedIn, o Dia Mundial da Segurança e Saúde no Trabalho pede um post mais denso — com dados, contexto e posicionamento de empresa. A SIPAMAC entra como diferencial concreto: não é qualquer empresa farmacêutica que tem área estruturada de segurança e ambiente.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Abertura com dado de contexto (ex: número de acidentes de trabalho na indústria química/farmacêutica no Brasil — fonte MTE ou Observatório de Segurança). Transição para o que a Globo Pharma faz de diferente. Dados reais da SIPAMAC (aguardando Lilian e Eryka). Fechamento com posicionamento: "Segurança não é protocolo aqui. É parte do produto."</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Pergunta de engajamento B2B: 'Na sua empresa ou área de atuação, como a cultura de segurança impacta a qualidade do que é entregado?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: post de parabéns genérico ao "time de SST". Sem uso de "orgulho" como palavra de abertura. Trazer dado real e contexto de mercado — não só falar de si mesmo. Evitar linguagem de release.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Imagem institucional ou infográfico com dado central em destaque. Linha visual sóbria.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-lk-2" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-lk">LinkedIn</span><span class="tag tag-num">POST 02</span></div>
+          <div class="card-title">Estrutura que sustenta confiança: o que está por trás da nossa operação</div>
+          <div class="card-dates"><span class="card-date">📅 Primeira quinzena de abril</span><span class="card-date">📐 Carrossel ou post com imagem de fábrica</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'lk', 'post-lk-2')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Autoridade + Conexão B2B</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Para o público de LinkedIn (parceiros, distribuidores, profissionais da área), mostrar que a Globo Pharma tem estrutura industrial séria é um diferencial de negócio. Não é post pra consumidor final — é posicionamento de parceiro confiável.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Foco nos números de estrutura: anos de mercado (desde 1954), tamanho da planta (41.000m²), portfólio de categorias. Conectar estrutura a confiabilidade para parceiros. Linguagem mais direta ao ponto: "Quando você escolhe um parceiro farmacêutico, estrutura não é detalhe. É a base."</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentário: 'O que você considera não negociável em um parceiro da indústria farmacêutica?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: listar atributos como bullet de currículo. Não fazer post de apresentação corporativa fria. Conectar os dados a um raciocínio — por que isso importa para quem lê? Não usar "excelência" e "qualidade" como adjetivos soltos.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Imagem real da planta ou linha de produção. Evitar banco de imagens com laboratório genérico.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-lk-3" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-lk">LinkedIn</span><span class="tag tag-num">POST 03</span></div>
+          <div class="card-title">Responsabilidade regulatória como vantagem competitiva</div>
+          <div class="card-dates"><span class="card-date">📅 Semana 2 ou 3 de abril</span><span class="card-date">📐 Post texto longo (artigo curto) + imagem</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'lk', 'post-lk-3')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Autoridade + Alcance orgânico no LinkedIn</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">No setor farmacêutico, seguir a regulação é o mínimo. Mas fazer isso com consistência e rigor — e conseguir comunicar isso bem — vira diferencial. Esse post posiciona a Globo Pharma como empresa que não apenas cumpre a lei, mas entende por que ela existe.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Abertura com afirmação forte: "Regulação não é obstáculo. É o que separa indústria séria de produto de risco." Desenvolvimento: como o processo regulatório (ANVISA, boas práticas de fabricação) impacta cada etapa da produção. Não é tutorial — é argumento de autoridade. Finaliza com posicionamento da empresa.</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Pergunta: 'Na sua visão, a regulação farmacêutica brasileira ainda é subestimada como fator de qualidade?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: soar como advogado da ANVISA. Não listar normas técnicas. O foco é o argumento, não o manual. Sem "compliance" como palavra-chave isolada. Não citar produto.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Post de texto com imagem sóbria — pode ser foto de documento/processo ou imagem conceitual. LinkedIn tolera mais texto que Instagram.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-lk-4" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-lk">LinkedIn</span><span class="tag tag-num">POST 04</span><span class="tag tag-both">✦ Ambas redes</span></div>
+          <div class="card-title">Antecipação Dia do Trabalho: a indústria farmacêutica que emprega e sustenta</div>
+          <div class="card-dates"><span class="card-date">📅 30 de abril</span><span class="card-date">📐 Post texto + imagem de equipe</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'lk', 'post-lk-4')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Engajamento + Alcance por identificação profissional</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">No LinkedIn, o 1º de maio tem outro peso — é data de reflexão profissional. A Globo Pharma pode se posicionar como empregadora relevante no setor e falar sobre o papel da indústria farmacêutica na geração de emprego qualificado no Brasil.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Dado de contexto: a indústria farmacêutica é um dos setores com maior proporção de emprego formal e qualificado no Brasil (fonte: Interfarma ou ABIFINA). A Globo Pharma como empresa que tem planta produtiva real em MG, com pessoas reais. Fechamento humano: não é só sobre medicamento — é sobre quem o faz.</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentário: 'Qual profissional da indústria farmacêutica você mais admira ou tem mais curiosidade sobre o trabalho?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: listar benefícios da empresa (parece anúncio de vaga). Não fazer post de empregador do ano. O foco é reconhecimento do setor, não autopromoção de RH.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Foto real de colaboradores — não banco de imagens. Luz natural, ambiente autêntico.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-lk-5" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-lk">LinkedIn</span><span class="tag tag-num">POST 05</span></div>
+          <div class="card-title">P&D e inovação: o que está sendo desenvolvido (sem revelar o que não pode)</div>
+          <div class="card-dates"><span class="card-date">📅 Semana 3 de abril</span><span class="card-date">📐 Post texto + imagem de laboratório real</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'lk', 'post-lk-5')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Autoridade + Conexão com parceiros e talentos</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">A Globo Pharma tem área de P&D — isso é diferencial. Mostrar que a empresa investe em desenvolvimento (mesmo sem detalhar projetos) comunica maturidade industrial e visão de futuro. Especialmente relevante para atrair parceiros e talentos.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Abertura com pergunta: "O que diferencia uma indústria farmacêutica que só fabrica de uma que também desenvolve?" Desenvolvimento sobre o papel de P&D interno em qualidade, adaptação regulatória e novos produtos. Finaliza com posicionamento: "Aqui, P&D não é departamento separado. É mentalidade."</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentário: 'Na sua área, inovação incremental ou disruptiva: qual tem mais valor no setor farmacêutico?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: prometer pipeline de lançamentos, falar de projetos confidenciais, usar "inovação" sem ancoragem concreta. Foco em mentalidade e processo, não em produto específico.</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Foto de laboratório real ou bancada de P&D. Evitar imagens genéricas de tubo de ensaio com fundo azul.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="post-lk-6" class="post-card" onclick="toggleCard(this)">
+      <div class="card-top">
+        <div class="card-meta">
+          <div class="card-tags"><span class="tag tag-lk">LinkedIn</span><span class="tag tag-num">POST 06</span></div>
+          <div class="card-title">Carreira na indústria farmacêutica: o que ninguém conta</div>
+          <div class="card-dates"><span class="card-date">📅 Semana 2 de abril</span><span class="card-date">📐 Post texto longo ou carrossel</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" onclick="toggleSelect(event, 'lk', 'post-lk-6')">Selecionar</button>
+          <button class="toggle-btn">▼</button>
+        </div>
+      </div>
+      <div class="card-body" style="display:none">
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#166534">🎯 Objetivo</span><div class="block-content" style="background:#f0fff6;border:1px solid #dcfce7">Alcance por compartilhamento + Atração de talentos</div></div>
+        <div class="block"><span class="block-label" style="background:#dbeafe;color:#1d4ed8">💡 Conceito</span><div class="block-content" style="background:#f5f9ff;border:1px solid #dbeafe">Conteúdo de carreira tem altíssimo alcance orgânico no LinkedIn. A Globo Pharma pode usar esse formato pra mostrar que trabalhar na indústria farmacêutica é mais complexo e interessante do que parece — e, de quebra, posicionar a empresa como empregadora com identidade.</div></div>
+        <div class="block"><span class="block-label" style="background:#f3e8ff;color:#6b21a8">🔲 Ângulo / Estrutura</span><div class="block-content" style="background:#fdf9ff;border:1px solid #f3e8ff">Lista com 4–5 percepções erradas sobre carreira na indústria farmacêutica — e como é na prática. Ex: "Achei que seria monótono → na prática, cada lote é um desafio diferente de controle". Cada item com voz humana, preferencialmente baseado em relato real de colaborador. Fechamento: link para página de carreiras.</div></div>
+        <div class="block"><span class="block-label" style="background:#fff7ed;color:#9a3412">💬 CTA</span><div class="block-content" style="background:#fffcf8;border:1px solid #fff7ed">Comentário + compartilhamento: 'Qual dessas você se identificou? Ou tem outra percepção que mudou depois que entrou na área?'</div></div>
+        <div class="block"><span class="block-label" style="background:#fee2e2;color:#991b1b">✍️ Obs. para Copy — EVITAR</span><div class="block-content" style="background:#fffafa;border:1px solid #fee2e2">EVITAR: lista genérica de "soft skills para trabalhar em farmácia". Precisa de especificidade — detalhes concretos que só quem conhece a indústria sabe. Não usar "apaixonados pelo que fazem" ou "time engajado".</div></div>
+        <div class="block"><span class="block-label" style="background:#dcfce7;color:#14532d">🎨 Obs. para Design</span><div class="block-content" style="background:#f7fff9;border:1px solid #dcfce7">Carrossel com tipografia limpa ou post de texto com quebras de parágrafo curtas. LinkedIn lê bem texto longo se bem estruturado.</div></div>
+        <div class="comment-area" onclick="event.stopPropagation()">
+          <div class="comment-label">💬 Comentário da equipe <span style="font-weight:400;color:#94a3b8">(opcional)</span></div>
+          <textarea class="comment-input" placeholder="Digite aqui sugestões, dúvidas ou ajustes sobre esse post..." oninput="markComment(this)"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pendências -->
+  <div class="pendencias">
+    <strong>📋 Pendências para finalizar</strong>
+    <ul>
+      <li>Material interno da <strong>SIPAMAC</strong> — dados reais para Post 01 (Instagram) e Post 01 (LinkedIn) · Aguardando Lilian e Eryka</li>
+      <li>Definir colaborador para <strong>humanização</strong> (Post 05 Insta e Post 04 LK) — foto real + frase autêntica</li>
+      <li>Disponibilidade de gravação para os <strong>Reels</strong> (Post 03 e 06 do Instagram)</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  const selections = { insta: [], lk: [] };
+  const MAX = 4;
+
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.className = 'tab-btn');
+    document.getElementById('panel-' + tab).classList.add('active');
+    btn.className = 'tab-btn active-' + tab;
+    document.getElementById('counter-insta').style.display = tab === 'insta' ? 'flex' : 'none';
+    document.getElementById('counter-lk').style.display = tab === 'lk' ? 'flex' : 'none';
+  }
+
+  function toggleCard(card) {
+    const body = card.querySelector('.card-body');
+    const btn = card.querySelector('.toggle-btn');
+    const isOpen = body.style.display !== 'none';
+    body.style.display = isOpen ? 'none' : 'block';
+    btn.textContent = isOpen ? '▼' : '▲';
+    btn.classList.toggle('open', !isOpen);
+    if (!card.classList.contains('selected')) {
+      card.classList.toggle('open', !isOpen);
+    }
+  }
+
+  function toggleSelect(e, rede, cardId) {
+    e.stopPropagation();
+    const card = document.getElementById(cardId);
+    const btn = card.querySelector('.select-btn');
+    const idx = selections[rede].indexOf(cardId);
+
+    if (idx > -1) {
+      selections[rede].splice(idx, 1);
+      card.classList.remove('selected');
+      card.querySelector('.tag-chosen') && card.querySelector('.tag-chosen').remove();
+      btn.textContent = 'Selecionar';
+      btn.classList.remove('selected');
+    } else if (selections[rede].length < MAX) {
+      selections[rede].push(cardId);
+      card.classList.add('selected');
+      card.classList.remove('open');
+      const tagsDiv = card.querySelector('.card-tags');
+      if (!tagsDiv.querySelector('.tag-chosen')) {
+        const t = document.createElement('span');
+        t.className = 'tag tag-chosen';
+        t.textContent = '✔ Escolhido';
+        tagsDiv.appendChild(t);
+      }
+      btn.textContent = '✔ Selecionado';
+      btn.classList.add('selected');
+    }
+    updateCounter(rede);
+    updateDisabled(rede);
+  }
+
+  function updateCounter(rede) {
+    const n = selections[rede].length;
+    const bar = document.getElementById('counter-' + rede);
+    const text = document.getElementById('counter-text-' + rede);
+    const redeName = rede === 'insta' ? 'Instagram' : 'LinkedIn';
+    for (let i = 0; i < 4; i++) {
+      const dot = document.getElementById('dot-' + rede + '-' + i);
+      dot.classList.toggle('filled', i < n);
+      dot.textContent = i < n ? '✔' : '';
+    }
+    if (n === MAX) {
+      bar.classList.add('complete');
+      text.textContent = `✅ 4 posts selecionados para ${redeName}!`;
+    } else {
+      bar.classList.remove('complete');
+      text.textContent = `${n} de ${MAX} posts selecionados para ${redeName}`;
+    }
+  }
+
+  function updateDisabled(rede) {
+    const prefix = rede === 'insta' ? 'post-insta-' : 'post-lk-';
+    const limit = selections[rede].length >= MAX;
+    document.querySelectorAll('[id^="' + prefix + '"]').forEach(card => {
+      const isSelected = selections[rede].includes(card.id);
+      const btn = card.querySelector('.select-btn');
+      if (!isSelected) {
+        btn.disabled = limit;
+        card.classList.toggle('disabled', limit);
+      }
+    });
+  }
+
+  function markComment(textarea) {
+    if (textarea.value.trim().length > 0) {
+      textarea.classList.add('has-text');
+    } else {
+      textarea.classList.remove('has-text');
+    }
+  }
+
+  function clearSelections(rede) {
+    const prefix = rede === 'insta' ? 'post-insta-' : 'post-lk-';
+    selections[rede] = [];
+    document.querySelectorAll('[id^="' + prefix + '"]').forEach(card => {
+      card.classList.remove('selected', 'disabled');
+      card.querySelector('.tag-chosen') && card.querySelector('.tag-chosen').remove();
+      const btn = card.querySelector('.select-btn');
+      btn.textContent = 'Selecionar';
+      btn.classList.remove('selected');
+      btn.disabled = false;
+    });
+    updateCounter(rede);
+  }
+</script>
+</body>
+</html>

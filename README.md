@@ -1,0 +1,2 @@
+# globopharma
+plano de pautas
